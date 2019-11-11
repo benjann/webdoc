@@ -1,5 +1,5 @@
 {smcl}
-{* 26oct2019}{...}
+{* 11nov2019}{...}
 {hi:help webdoc}{...}
 {right:Jump to: {help webdoc##syntax:Syntax}, {help webdoc##description:Description}, {help webdoc##options:Options}, {help webdoc##examples:Examples}, {help webdoc##remarks:Remarks}, {help webdoc##results:Stored results}}
 {right: Also see: {browse "http://repec.sowi.unibe.ch/stata/webdoc"}}
@@ -329,7 +329,7 @@ a table of contents
 
 {syntab :Technical}
 {synopt:[{cmd:{ul:no}}]{opt h:ardcode}}whether to embed the graph in the output
-    document (PNG and SVG only); default is {cmd:nohardcode}
+    document (PNG, GIF, JPEG, and SVG only); default is {cmd:nohardcode}
     {p_end}
 {synopt:[{cmd:{ul:no}}]{opt k:eep}}whether to erase the external graph file
     if {cmd:hardcode} is specified; default is {cmd:keep}
@@ -1104,11 +1104,10 @@ a table of contents
 
 {phang}
     [{cmd:no}]{cmd:hardcode} specifies whether to embed the graph source in the
-    output document. This is only supported for PNG and SVG. In case of
-    PNG, the graph file will be embedded using Base64 encoding. In case of SVG, the
-    SVG code will be copied into the output document. The default is
-    {cmd:nohardcode}, i.e. to include the
-    graph using a link to the external graph file.
+    output document. This is only supported for PNG, GIF, JPEG, and SVG. In case of
+    PNG, GIF, and JPEG, the graph file will be embedded using Base64 encoding. In 
+    case of SVG, the SVG code will be copied into the output document. The default is
+    {cmd:nohardcode}, i.e. to include the graph using a link to the external graph file.
 
 {phang}
     [{cmd:no}]{cmd:keep} specifies whether the external graph file (and its

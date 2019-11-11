@@ -1,4 +1,4 @@
-*! version 1.2.6  26oct2019  Ben Jann
+*! version 1.2.8  11nov2019  Ben Jann
 
 program webdoc
     version 10.1
@@ -1334,7 +1334,7 @@ program webdoc_graph
             }
         }
         if "`hardcode'"!="" {
-            if "`isuffix'"==".png" {
+            if inlist("`isuffix'", ".png", ".jpg", ".gif") {
                 nobreak {
                     capt n break {
                         mata: webdoc_instance_fh("fh")
@@ -1353,7 +1353,7 @@ program webdoc_graph
                 // do nothing
             }
             else {
-                di as err "hardcode only supported for PNG and SVG"
+                di as err "hardcode not supported with `isuffix'"
                 exit 498
             }
         }
@@ -1396,7 +1396,7 @@ program webdoc_graph
                 _webdoc_write write `webname'`isuffix'
             }
             else {
-                _webdoc_put put data:image/png;base64,
+                _webdoc_put put data:image/`=substr("`isuffix'",2,.)';base64,
                 quietly webdoc_append `"`filename'.base64"'
             }
             if "`nokeep'"!="" {
@@ -2726,7 +2726,7 @@ void webdoc_graph_b64(real scalar fh, real scalar fh2)
            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
            "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "/")
-    fh  = fopen(st_local("filename")+".png", "r")                   // input
+    fh  = fopen(st_local("filename")+st_local("isuffix"), "r")      // input
     webdoc_fopen_replace(st_local("filename")+".base64", fh2, "w")  // output
     b = J(1, 24, 0)     // temporary 24 bit vector
     i = 0               // input character counter
@@ -3092,12 +3092,10 @@ void webdoc_do_markup(string colvector f, real colvector t, pointer vector S)
         if (a<b) {
             if (strtrim(f[i0])=="") a++
         }
-        i
         // update index if file ends prematurely
         if (i>r) {
             b--; i--
         }
-        i, a, b
         // store markup snippet and insert webdoc append command
         if (a<=r) snip = f[|a \ b|]
         else      snip = "" // file ended with "/***"
