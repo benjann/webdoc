@@ -1,0 +1,2 @@
+v 3
+p webdoc module to create a HTML or Markdown document including Stata output
